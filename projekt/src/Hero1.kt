@@ -8,14 +8,18 @@ class Hero1(name:String,hp:Int):Hero(name,hp) {
     override fun attack(boss: Boss) {
         val damage = 20 // Adjust the damage value as needed
         boss.takeDamage(damage)
+        hasLostHP = true
     }
     override fun defend(boss: Boss) {
         // When a hero chooses to defend, no action is taken by the boss.
         // Hero's HP remains the same.
         println("$name chooses to defend and takes no damage.")
+
+
     }
     override fun useBag() {
         if (hasLostHP) {
+            println("$name, choose an item to use: ${bag.joinToString(", ")}")
             val item = readln()
             if (item == "Healing Potion" && bag.contains("Healing Potion")) {
                 hp += 20 // Increase HP by 20

@@ -1,4 +1,6 @@
 class UnderBoss(name: String, hp: Int) : Boss(name, hp) {
+    var isSummoned = false
+
     override val actions = mutableListOf("Fire Breath", "Curse")
 
     fun underBossActions(heroes: List<Hero>) {
@@ -15,7 +17,6 @@ class UnderBoss(name: String, hp: Int) : Boss(name, hp) {
                 val damage = 7 // Adjust this value as needed
                 heroes.forEach { hero -> hero.hp -= damage }
             }
-
         }
     }
 }
