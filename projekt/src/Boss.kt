@@ -1,4 +1,4 @@
-open class Boss(var name: String, var hp: Int) {
+open class Boss(var name: String, open var hp: Int) {
     open val actions = mutableListOf("Fire Breath", "Curse")
     fun takeDamage(damage: Int) {
         hp -= damage

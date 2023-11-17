@@ -1,22 +1,31 @@
-class UnderBoss(name: String, hp: Int) : Boss(name, hp) {
-    var isSummoned = false
+class UnderBoss(name: String, override var hp: Int) : Boss(name, hp) {
+    var underbossadded = false
 
-    override val actions = mutableListOf("Fire Breath", "Curse")
+    override val actions = mutableListOf("Thunder", "Fire strike")
 
     fun underBossActions(heroes: List<Hero>) {
-        println("$name, choose an action against heroes: Fire Breath, Curse")
-        val chosenAction = readln()
+        if (hp > 0) {
+            val action = actions.random()
 
-        when (chosenAction) {
-            "Fire Breath" -> {
-                val damage = 12 // Adjust this value as needed
-                val targetHero = heroes.random()
-                targetHero.hp -= damage
+            when (action) {
+                "Thunder" -> thunder(heroes)
+                "Fire strike" -> fireStrike(heroes)
             }
-            "Curse" -> {
-                val damage = 7 // Adjust this value as needed
-                heroes.forEach { hero -> hero.hp -= damage }
-            }
+        }
+    }
+
+    fun thunder(heroes: List<Hero>) {
+        if (heroes.isNotEmpty()) {
+            val targetHero = heroes.random()
+            val damage = 12
+            targetHero.hp -= damage
+        }
+    }
+
+    fun fireStrike(heroes: List<Hero>) {
+        if (heroes.isNotEmpty()) {
+            val damage = 7
+            heroes.forEach { hero -> hero.hp -= damage }
         }
     }
 }

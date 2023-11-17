@@ -1,33 +1,42 @@
 class FinalBoss(name: String, hp: Int) : Boss(name, hp) {
-    override val actions = mutableListOf("Fire Breath", "Curse")
+    val maxHP: Int = hp // assuming maxHP is equal to the initial HP
+    private var isUnderBossSummoned = false
 
+    override val actions = mutableListOf("Fire Breath", "Curse", "Summon UnderBoss")
+
+
+    // In der FinalBoss-Klasse
     fun finalBossActions(heroes: List<Hero>, underBoss: UnderBoss) {
-        println("$name, choose an action: $actions")
-        val chosenAction = readln()
+        println("$name, choose an action against heroes: 1. Fire Breath, 2. Curse")
+        val action = readln()
 
-        when (chosenAction) {
-            "Fire Breath" -> {
-                val damage = 25 // Adjust the damage value as needed
-                val targetHero = heroes.random()
-                targetHero.hp -= damage
+        // Überprüfen, ob die Eingabe numerisch ist
+        val actionIndex = action.toIntOrNull()
+
+        when (actionIndex) {
+            1 -> {
+                fireBreath(heroes)
             }
-
-            "Curse" -> {
-                val damage = 12 // Adjust the damage value as needed
-                heroes.forEach { hero -> hero.hp -= damage }
+            2 -> {
+                curse(heroes)
             }
-
-            "UnderBoss" -> {
-                if (hp <= 60 && !underBoss.isSummoned) {
-                    println("$name summons the UnderBoss.")
-                    underBoss.hp = 50 // Set the UnderBoss's HP when summoned
-                    underBoss.isSummoned = true
-                    println("UnderBoss HP: ${underBoss.hp}")
-                    underBoss.underBossActions(heroes)
-                } else {
-                    println("$name cannot summon the UnderBoss now.")
-                }
+            else -> {
+                println("Invalid input. Please choose a valid action.")
             }
         }
     }
+
+
+
+    fun fireBreath(heroes: List<Hero>) {
+        val damage = 25
+        val targetHero = heroes.random()
+        targetHero.hp -= damage
+    }
+
+    fun curse(heroes: List<Hero>) {
+        val damage = 12
+        heroes.forEach { hero -> hero.hp -= damage }
+    }
 }
+
