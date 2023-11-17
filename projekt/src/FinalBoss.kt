@@ -1,7 +1,6 @@
 class FinalBoss(name: String, hp: Int) : Boss(name, hp) {
     val maxHP: Int = hp // assuming maxHP is equal to the initial HP
     private var isUnderBossSummoned = false
-
     override val actions = mutableListOf("Fire Breath", "Curse", "Summon UnderBoss")
 
 
