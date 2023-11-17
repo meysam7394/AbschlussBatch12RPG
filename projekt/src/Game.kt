@@ -9,10 +9,12 @@ class Game {
 
     fun start() {
         println("Welcome to the Hero vs Boss Game!")
+        //  This loop continues as long as there is at least one hero with positive HP,
+        //  and either the finalBoss or the underBoss has positive HP.
         while (heroes.any { it.hp > 0 } && (finalBoss.hp > 0 || underBoss.hp > 0)) {
             heroes.forEach { hero ->
-                if (hero.hp > 0) {
-                    val action = hero.chooseAction()
+                if (hero.hp > 0) {  // Check if the current hero has positive HP
+                    val action = hero.chooseAction()  // Get the action chosen by the hero using the chooseAction method
 
                     // Handle actions based on hero type
                     when (action) {
@@ -66,16 +68,20 @@ class Game {
 
     private fun printBattleState() {
         println("\nCurrent Battle State:")
+        //repeat through each hero in the 'heroes' list
         heroes.forEach { hero ->
-            println("${hero.name}: HP = ${hero.hp}")
+            println("${hero.name}: HP = ${hero.hp}") //// Print the name and HP of each hero
         }
+        //// Print the HP of the finalBoss and underBoss
         println("Final Boss: HP = ${finalBoss.hp}")
         println("UnderBoss: HP = ${underBoss.hp}\n")
     }
 
     private fun determineWinner() {
         if (heroes.all { it.hp <= 0 }) {
+             // If all heroes have HP less than or equal to 0, print that the Final Boss and UnderBoss are the winners
             println("Final Boss and UnderBoss are the winners!")
+           // If both the finalBoss and underBoss have HP less than or equal to 0, print that the Heroes are the winners
         } else if (finalBoss.hp <= 0 && underBoss.hp <= 0) {
             println("Heroes are the winners!")
         }
